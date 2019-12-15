@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello World!</title>
+	<meta charset="utf-8">
+	
+	<link href="style/style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+	<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+	
+</head>
+<body>
+	<div style="text-align:center">
+		<div><input id="ans" value="0"><button type="button" id="send" onclick=Go()>Go</button></div>
+		<div><p id="warningMsg"></p></div>
+	
+	
+		<div class="swiper-container">
+			<!-- Additional required wrapper -->
+			<div class="swiper-wrapper" style="vertical-align:middle">
+				<!-- Slides -->
+				<div class="swiper-slide">
+					<div class="alignMiddle">
+					<button type="button" class="symbol" id="epsilon" onclick=symbol("ϵ")>ϵ</button>
+					<button type="button" class="symbol" id="delta" onclick=symbol("δ")>δ</button>
+					<button type="button" class="symbol" id="Sigma" onclick=symbol("Σ")>Σ</button>
+					</div>
+				</div>
+				<div class="swiper-slide" style="text-align:center">
+					<div class="alignMiddle">
+					<button type="button" class="symbol" id="Delta" onclick=symbol("Δ")>Δ</button>
+					<button type="button" class="symbol" id="pi" onclick=symbol("π")>π</button>
+					<button type="button" class="symbol" id="theta" onclick=symbol("θ")>θ</button>
+					</div>
+				</div>
+				<div class="swiper-slide" style="text-align:center">
+					<div class="alignMiddle">
+					<button type="button" class="symbol" id="forall" onclick=symbol("∀")>∀</button>
+					<button type="button" class="symbol" id="zeta" onclick=symbol("ζ")>ζ</button>
+					<button type="button" class="symbol" id="xi" onclick=symbol("ξ")>ξ</button>
+					</div>
+				</div>
+			</div>
+			<!-- If we need pagination 
+			<div class="swiper-pagination"></div>-->
+
+			<!-- If we need navigation buttons -->
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+
+			<!-- If we need scrollbar 
+			<div class="swiper-scrollbar"></div>-->
+		</div>
+	</div>
+	
+	
+	<!--  Here is my real script  -->
+	<script>
+		function symbol(data){
+			//console.log(document.getElementById('ans').value);
+			//console.log("Caret at: ", document.getElementById('ans').selectionStart)
+			let index = document.getElementById('ans').selectionStart
+			let head = document.getElementById('ans').value.slice(0,index)
+			let tail = document.getElementById('ans').value.slice(index)
+			document.getElementById('ans').value = head.concat(data.concat(tail))
+		}
+		function text_check_change(){
+			let data = document.getElementById('ans').value
+			data = data.replace(/ϵ/g, "\\epsilon ")
+			data = data.replace(/δ/g, "\\delta ")
+			data = data.replace(/Σ/g, "\\Sigma ")
+			data = data.replace(/Δ/g, "\\Delta ")
+			data = data.replace(/π/g, "\\pi ")
+			data = data.replace(/θ/g, "\\theta ")
+			data = data.replace(/∀/g, "\\forall ")
+			data = data.replace(/ζ/g, "\\zeta ")
+			data = data.replace(/ξ/g, "\\xi ")
+			return data
+		}
+		
+	</script>
+	
+	<script src="https://unpkg.com/swiper/js/swiper.js"></script>
+	<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+	<script>
+	  var mySwiper = new Swiper ('.swiper-container', {
+		// Optional parameters
+		direction: 'horizontal',//'vertical',
+		loop: true,
+
+		// If we need pagination
+		/*pagination: {
+		  el: '.swiper-pagination',
+		},*/
+
+		// Navigation arrows
+		navigation: {
+		  nextEl: '.swiper-button-next',
+		  prevEl: '.swiper-button-prev',
+		},
+
+		// And if we need scrollbar
+		/*scrollbar: {
+		  el: '.swiper-scrollbar',
+		},*/
+	  })
+	</script>
+	
+	<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+	<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+
+	<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-analytics.js"></script>
+
+	<!-- Add Firebase products that you want to use -->
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-firestore.js"></script>
+	<script>
+	  // Your web app's Firebase configuration
+	  var firebaseConfig = {
+		apiKey: "AIzaSyBF2uPeIMPhyrmUyKfvTy9n7WkOSI85zmg",
+		authDomain: "practice-2334f.firebaseapp.com",
+		databaseURL: "https://practice-2334f.firebaseio.com",
+		projectId: "practice-2334f",
+		storageBucket: "practice-2334f.appspot.com",
+		messagingSenderId: "906379530813",
+		appId: "1:906379530813:web:f36ce20044f9c8f7111054",
+		measurementId: "G-NK01QHSFQT"
+	  };
+	  // Initialize Firebase
+	  firebase.initializeApp(firebaseConfig);
+	  firebase.analytics();
+	  
+		// Get a reference to the database service
+		var database = firebase.database();
+		function Go(){
+			let text_to_send = text_check_change()
+			
+			// send something to server
+			var d = new Date();
+			let time = d.getTime();
+			firebase.database.ref('/chatroom/').set({
+				time: "Hello"
+			});
+			
+		}
+	</script>
+</body>
+</html>
