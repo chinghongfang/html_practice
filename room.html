@@ -4,16 +4,19 @@
 	<meta charset="utf-8">
 </head>
 <body>
-	
-<!-- Import and configure the Firebase SDK -->
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
+	<div id="chat_room">
+		
+	</div>
+<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-analytics.js"></script>
+	<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-analytics.js"></script>
+
+	<!-- Add Firebase products that you want to use -->
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-firestore.js"></script><!--
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
-
+	-->
 <script>
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -29,10 +32,20 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
-  
-	$(document).ready(function(){
-		
-	})
+
+	function updateroom(time_stamp){
+		let keys = Object.keys(time_stamp);
+		let all_text = "";
+		keys.forEach(function(key){
+			all_text += "<p>--"+time_stamp[key]["message"]+"</p>";
+		});
+		document.getElementById("chat_room").innerHTML = all_text;
+	}
+	var chatroomRef = firebase.database().ref('/chatroom/');
+	chatroomRef.on('value', function(snapshot) {
+		updateroom(snapshot.val());
+	});
+	
 </script>
 </body>
 </html>

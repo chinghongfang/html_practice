@@ -143,8 +143,8 @@
 			// send something to server
 			var d = new Date();
 			let time = d.getTime();
-			firebase.database().ref('/chatroom/').set({
-				time: text_to_send
+			firebase.database().ref('/chatroom/'+time).set({
+				message: text_to_send
 			});
 			
 		}
