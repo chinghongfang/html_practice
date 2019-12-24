@@ -1,10 +1,7 @@
 # practice
 ## localhost server
-The file is writen in app.js. It will open a web that can send message to database. Enter these instruction to run the server. It is implemented by socket.
-To build the server: 
 ```
-~$ npm install
-~$ node app.js
+~$ python app.py
 ```
 Open your browser, and enter "localhost".
 ## ¶}±Òºô­¶

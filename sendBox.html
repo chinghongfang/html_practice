@@ -1,25 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html style="height:100%;">
 <head>
 	<title>Hello World!</title>
 	<meta charset="utf-8">
 	
-	<link href="style/style.css" rel="stylesheet" type="text/css">
+	<link href="style/style.css" rel="stylesheet" type="text/css"><!---->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
 	<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 	
 </head>
-<body>
-	<div style="text-align:center">
-		<div><input id="ans" value="0"><button type="button" id="send" onclick=Go()>Go</button></div>
+<body style="height:100%;">
+	<div style="height:100%;margin:0px;"><!--vertical-align:middle;top:5%;position:absolute;-->
+		<div style="height:20%;margin:5%;">
+			<div style="height:100%;width:70%;float:left;">
+				<input type="text" id="ans" value=""  style="width:90%;height:100%;font-size:100px;">
+			</div>
+			
+			<div style="height:100%;float:left;">
+				<!--<button type="button" style="height:100%;" onclick=Go()><image src="image/client2.png" style="width:auto;height:auto;max-width:100%;max-height:100%;"></button>
+				-->
+				<input type="image" src="image/client2.png" style="max-height:100%;" onclick=Go()></input>
+				
+			</div>
+		</div>
 		<div><p id="warningMsg"></p></div>
 	
 	
-		<div class="swiper-container">
+		<div class="swiper-container" style="height:20%;">
 			<!-- Additional required wrapper -->
 			<div class="swiper-wrapper" style="vertical-align:middle">
 				<!-- Slides -->
-				<div class="swiper-slide">
+				<div class="swiper-slide" style="text-align:center">
 					<div class="alignMiddle">
 					<button type="button" class="symbol" id="epsilon" onclick=symbol("ϵ")>ϵ</button>
 					<button type="button" class="symbol" id="delta" onclick=symbol("δ")>δ</button>
@@ -51,6 +62,39 @@
 			<!-- If we need scrollbar 
 			<div class="swiper-scrollbar"></div>-->
 		</div>
+		<style>
+			.swiper-container{
+				width: 80%;
+				height: 100%;
+			}
+			.alignMiddle {
+				height:100%;
+			}
+			.symbol {
+				font-size: 100px;
+				width: 10%;
+				height:100%;
+			}
+		</style>
+		<div style="height:10%;font-size:50px;">
+			顏色：
+			<label>
+				<input type="radio" name="color" value="#000000" style="cursor:pointer;width:50px;height:50px;" checked>
+				<image src="image/black.png" style="cursor:pointer;">
+			</label>
+			<label>
+				<input type="radio" name="color" value="#88C23C" style="cursor:pointer;width:50px;height:50px;">
+				<image src="image/green.png">
+			</label>
+			<label>
+				<input type="radio" name="color" value="#D2AD63" style="cursor:pointer;width:50px;height:50px;">
+				<image src="image/yellow.png" style="cursor:pointer;">
+			</label>
+			<label>
+				<input type="radio" name="color" value="#171C61" style="cursor:pointer;width:50px;height:50px;">
+				<image src="image/blue.png" style="cursor:pointer;">
+			</label>
+		</div>
 	</div>
 	
 	
@@ -77,7 +121,7 @@
 			data = data.replace(/ξ/g, "\\xi ")
 			return data
 		}
-		
+		//var ws = new WebSocket("ws:localhost:8888");
 	</script>
 	
 	<script src="https://unpkg.com/swiper/js/swiper.js"></script>
@@ -120,6 +164,7 @@
 	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-firestore.js"></script>
 	<script>
+		console.log("1");
 	  // Your web app's Firebase configuration
 	  var firebaseConfig = {
 		apiKey: "AIzaSyBF2uPeIMPhyrmUyKfvTy9n7WkOSI85zmg",
@@ -134,20 +179,54 @@
 	  // Initialize Firebase
 	  firebase.initializeApp(firebaseConfig);
 	  firebase.analytics();
-	  
+	  console.log("2")
 		// Get a reference to the database service
 		var database = firebase.database();
+		console.log("3")
 		function Go(){
+			handleClick()
+			
 			let text_to_send = text_check_change()
 			
 			// send something to server
 			var d = new Date();
 			let time = d.getTime();
+			
+			// get color radio box
+			let colors = document.getElementsByName('color');
+			let color;
+			for (let i = 0; i< colors.length; ++i){
+				if (colors[i].checked){
+					color = colors[i].value;
+					break;
+				}
+			}
+			
 			firebase.database().ref('/chatroom/'+time).set({
-				message: text_to_send
+				message: text_to_send,
+				color:	color
 			});
 			
 		}
+		const handleClick=()=>{
+
+				var data={test:text_check_change(),corlr:43453};
+
+    			fetch( '/response',{
+					method:"POST",
+					body:JSON.stringify(data),
+					headers: new Headers({
+            					'Content-Type': 'application/json'
+        				})
+					 })
+    			.then(res => res.json())
+    			.then(data => {//i know
+          			
+    			})
+    			.catch(e => {
+        			console.log(e);
+    			})
+  		}
 	</script>
 </body>
 </html>
