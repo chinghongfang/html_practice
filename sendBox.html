@@ -13,7 +13,7 @@
 	<div style="height:100%;margin:0px;"><!--vertical-align:middle;top:5%;position:absolute;-->
 		<div style="height:20%;margin:5%;">
 			<div style="height:100%;width:70%;float:left;">
-				<input type="text" id="ans" value=""  style="width:90%;height:100%;font-size:100px;">
+				<input type="text" id="ans" value=""  style="width:90%;height:100%;font-size:100px;" onclick=change_pos()>
 			</div>
 			
 			<div style="height:100%;float:left;">
@@ -23,7 +23,7 @@
 				
 			</div>
 		</div>
-		<div><p id="warningMsg"></p></div>
+		<div><p id="warningMsg" style="font-size:50px; color:red;"></p></div>
 	
 	
 		<div class="swiper-container" style="height:20%;">
@@ -31,33 +31,39 @@
 			<div class="swiper-wrapper" style="vertical-align:middle">
 				<!-- Slides -->
 				<div class="swiper-slide" style="text-align:center">
-					<div class="alignMiddle">
-					<button type="button" class="symbol" id="epsilon" onclick=symbol("ϵ")>ϵ</button>
-					<button type="button" class="symbol" id="delta" onclick=symbol("δ")>δ</button>
-					<button type="button" class="symbol" id="Sigma" onclick=symbol("Σ")>Σ</button>
+					<button type="button" class="symbol" id="agree" onclick=symbol("agree")>贊同</button>
 					</div>
-				</div>
 				<div class="swiper-slide" style="text-align:center">
-					<div class="alignMiddle">
-					<button type="button" class="symbol" id="Delta" onclick=symbol("Δ")>Δ</button>
-					<button type="button" class="symbol" id="pi" onclick=symbol("π")>π</button>
-					<button type="button" class="symbol" id="theta" onclick=symbol("θ")>θ</button>
+					<button type="button" class="symbol" id="opisite" onclick=symbol("opisite")>反對</button></br>
 					</div>
-				</div>
 				<div class="swiper-slide" style="text-align:center">
-					<div class="alignMiddle">
-					<button type="button" class="symbol" id="forall" onclick=symbol("∀")>∀</button>
-					<button type="button" class="symbol" id="zeta" onclick=symbol("ζ")>ζ</button>
-					<button type="button" class="symbol" id="xi" onclick=symbol("ξ")>ξ</button>
+					<button type="button" class="symbol" id="air_con" onclick=symbol("air_con")>老師可以開冷氣嗎</button>
 					</div>
-				</div>
+				<div class="swiper-slide" style="text-align:center">
+					<button type="button" class="symbol" id="slower" onclick=symbol("slower")>老師可以講慢一點嗎</button></br>
+					</div>
+				<div class="swiper-slide" style="text-align:center">
+					<button type="button" class="symbol" id="again" onclick=symbol("again")>可以再講一次嗎</button></br>
+					</div>
+				<div class="swiper-slide" style="text-align:center">
+					<button type="button" class="symbol" id="break" onclick=symbol("break")>老師下課了</button>
+					</div>
+				<div class="swiper-slide" style="text-align:center">
+					<button type="button" class="symbol" id="lunch" onclick=symbol("lunch")>中午吃啥</button></br>
+					</div>
+				<div class="swiper-slide" style="text-align:center">
+					<button type="button" class="symbol" id="cold" onclick=symbol("cold")>冷氣好冷</button></br>
+					</div>
+				<div class="swiper-slide" style="text-align:center">
+					<button type="button" class="symbol" id="sleepy" onclick=symbol("sleepy")>快睡著了</button>
+					</div>
 			</div>
 			<!-- If we need pagination 
 			<div class="swiper-pagination"></div>-->
 
-			<!-- If we need navigation buttons -->
+			<!-- If we need navigation buttons 
 			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
+			<div class="swiper-button-next"></div>-->
 
 			<!-- If we need scrollbar 
 			<div class="swiper-scrollbar"></div>-->
@@ -71,27 +77,29 @@
 				height:100%;
 			}
 			.symbol {
-				font-size: 100px;
-				width: 10%;
+				font-size: 50px;
 				height:100%;
+				background-image: url(image/button1.png);
+				/*background-repeat: no-repeat;*/
+				border:0px;
 			}
 		</style>
-		<div style="height:10%;font-size:50px;">
+		<div style="height:10%;font-size:50px;margin-top:5%;margin-left:5%;">
 			顏色：
 			<label>
-				<input type="radio" name="color" value="#000000" style="cursor:pointer;width:50px;height:50px;" checked>
-				<image src="image/black.png" style="cursor:pointer;">
+				<input type="radio" name="color" value="red" style="cursor:pointer;width:50px;height:50px;" checked>
+				<image src="image/red.png" style="cursor:pointer;">
 			</label>
 			<label>
-				<input type="radio" name="color" value="#88C23C" style="cursor:pointer;width:50px;height:50px;">
-				<image src="image/green.png">
+				<input type="radio" name="color" value="white" style="cursor:pointer;width:50px;height:50px;">
+				<image src="image/white.png">
 			</label>
 			<label>
-				<input type="radio" name="color" value="#D2AD63" style="cursor:pointer;width:50px;height:50px;">
-				<image src="image/yellow.png" style="cursor:pointer;">
+				<input type="radio" name="color" value="Grass" style="cursor:pointer;width:50px;height:50px;">
+				<image src="image/green.png" style="cursor:pointer;">
 			</label>
 			<label>
-				<input type="radio" name="color" value="#171C61" style="cursor:pointer;width:50px;height:50px;">
+				<input type="radio" name="color" value="Blue" style="cursor:pointer;width:50px;height:50px;">
 				<image src="image/blue.png" style="cursor:pointer;">
 			</label>
 		</div>
@@ -100,12 +108,21 @@
 	
 	<!--  Here is my real script  -->
 	<script>
-		function symbol(data){
-			//console.log(document.getElementById('ans').value);
+		var pos = 0;
+		function change_pos(){
+			pos = document.getElementById('ans').selectionStart;
+			document.getElementById("warningMsg").innerHTML = ""
+		}
+		function symbol(id){
+			//console.log(id)
+			//console.log(document.getElementById(id).innerHTML);
 			//console.log("Caret at: ", document.getElementById('ans').selectionStart)
-			let index = document.getElementById('ans').selectionStart
-			let head = document.getElementById('ans').value.slice(0,index)
-			let tail = document.getElementById('ans').value.slice(index)
+			document.getElementById("warningMsg").innerHTML = ""
+			
+			let head = document.getElementById('ans').value.slice(0,pos)
+			let tail = document.getElementById('ans').value.slice(pos)
+			let data = document.getElementById(id).innerHTML;
+			pos += data.length
 			document.getElementById('ans').value = head.concat(data.concat(tail))
 		}
 		function text_check_change(){
@@ -129,8 +146,10 @@
 	<script>
 	  var mySwiper = new Swiper ('.swiper-container', {
 		// Optional parameters
-		direction: 'horizontal',//'vertical',
-		loop: true,
+		direction: 'vertical',//'horizontal',
+		loop: false,
+		slidesPerView: 3,
+		spaceBetween: 5,
 
 		// If we need pagination
 		/*pagination: {
@@ -138,10 +157,10 @@
 		},*/
 
 		// Navigation arrows
-		navigation: {
+		/*navigation: {
 		  nextEl: '.swiper-button-next',
 		  prevEl: '.swiper-button-prev',
-		},
+		},*/
 
 		// And if we need scrollbar
 		/*scrollbar: {
@@ -164,7 +183,6 @@
 	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-firestore.js"></script>
 	<script>
-		console.log("1");
 	  // Your web app's Firebase configuration
 	  var firebaseConfig = {
 		apiKey: "AIzaSyBF2uPeIMPhyrmUyKfvTy9n7WkOSI85zmg",
@@ -179,15 +197,17 @@
 	  // Initialize Firebase
 	  firebase.initializeApp(firebaseConfig);
 	  firebase.analytics();
-	  console.log("2")
 		// Get a reference to the database service
 		var database = firebase.database();
-		console.log("3")
 		function Go(){
-			handleClick()
+			//handleClick()
 			
 			let text_to_send = text_check_change()
-			
+			if (text_to_send.length > 20){
+				document.getElementById("warningMsg").innerHTML = "不能超過20字";
+				return;
+			}
+			document.getElementById('ans').value = "";
 			// send something to server
 			var d = new Date();
 			let time = d.getTime();
@@ -208,7 +228,7 @@
 			});
 			
 		}
-		const handleClick=()=>{
+		/*const handleClick=()=>{
 
 				var data={test:text_check_change(),corlr:43453};
 
@@ -226,7 +246,7 @@
     			.catch(e => {
         			console.log(e);
     			})
-  		}
+  		}*/
 	</script>
 </body>
 </html>

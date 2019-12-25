@@ -4,10 +4,19 @@
 	<meta charset="utf-8">
 </head>
 <body>
-	<div id="chat_room">
+	<div id="chat_room" style="font-size:50px;">
 		
 	</div>
-<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase.js"></script>
+	<style>
+		.msg{
+			font-size:50px;
+			background-image: url(image/msg.png);
+			background-repeat: no-repeat;
+			border:0px;
+		}
+	</style>
+	
+	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase.js"></script>
 
 	<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
 	<script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-analytics.js"></script>
@@ -32,12 +41,14 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
-
+	firebase.database().ref('/chatroom').set({1234: 1});
 	function updateroom(time_stamp){
 		let keys = Object.keys(time_stamp);
 		let all_text = "";
 		keys.forEach(function(key){
-			all_text += "<p>--"+time_stamp[key]["message"]+"</p>";
+			if (time_stamp[key]["message"]){
+				all_text += "<input class=\"msg\" value=\""+time_stamp[key]["message"]+"\" disabled></br>";
+			}
 		});
 		document.getElementById("chat_room").innerHTML = all_text;
 	}
