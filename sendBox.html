@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="height:100%;">
 <head>
-	<title>Hello World!</title>
+	<title></title>
 	<meta charset="utf-8">
 	
 	<link href="style/style.css" rel="stylesheet" type="text/css"><!---->
@@ -11,6 +11,10 @@
 </head>
 <body style="height:100%;">
 	<div style="height:100%;margin:0px;"><!--vertical-align:middle;top:5%;position:absolute;-->
+		<div style="text-align:center;">
+			<h1>百萬彈幕</h1>
+			<h3>～老師與學生們的交流神器～</h3></br>
+		</div>
 		<div style="height:20%;margin:5%;">
 			<div style="height:100%;width:70%;float:left;">
 				<input type="text" id="ans" value=""  style="width:90%;height:100%;font-size:100px;" onclick=change_pos()>
@@ -19,7 +23,7 @@
 			<div style="height:100%;float:left;">
 				<!--<button type="button" style="height:100%;" onclick=Go()><image src="image/client2.png" style="width:auto;height:auto;max-width:100%;max-height:100%;"></button>
 				-->
-				<input type="image" src="image/client2.png" style="max-height:100%;" onclick=Go()></input>
+				<input type="image" src="https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/client2.png" style="max-height:100%;" onclick=Go()></input>
 				
 			</div>
 		</div>
@@ -79,7 +83,7 @@
 			.symbol {
 				font-size: 50px;
 				height:100%;
-				background-image: url(image/button1.png);
+				background-image: url(https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/button1.png);
 				/*background-repeat: no-repeat;*/
 				border:0px;
 			}
@@ -88,19 +92,19 @@
 			顏色：
 			<label>
 				<input type="radio" name="color" value="red" style="cursor:pointer;width:50px;height:50px;" checked>
-				<image src="image/red.png" style="cursor:pointer;">
+				<image src="https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/red.png" style="cursor:pointer;">
 			</label>
 			<label>
 				<input type="radio" name="color" value="white" style="cursor:pointer;width:50px;height:50px;">
-				<image src="image/white.png">
+				<image src="https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/white.png">
 			</label>
 			<label>
 				<input type="radio" name="color" value="Grass" style="cursor:pointer;width:50px;height:50px;">
-				<image src="image/green.png" style="cursor:pointer;">
+				<image src="https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/green.png" style="cursor:pointer;">
 			</label>
 			<label>
 				<input type="radio" name="color" value="Blue" style="cursor:pointer;width:50px;height:50px;">
-				<image src="image/blue.png" style="cursor:pointer;">
+				<image src="https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/blue.png" style="cursor:pointer;">
 			</label>
 		</div>
 	</div>
@@ -200,13 +204,15 @@
 		// Get a reference to the database service
 		var database = firebase.database();
 		function Go(){
-			//handleClick()
 			
 			let text_to_send = text_check_change()
 			if (text_to_send.length > 20){
 				document.getElementById("warningMsg").innerHTML = "不能超過20字";
 				return;
 			}
+			
+			handleClick()
+			
 			document.getElementById('ans').value = "";
 			// send something to server
 			var d = new Date();
@@ -222,15 +228,25 @@
 				}
 			}
 			
+			
 			firebase.database().ref('/chatroom/'+time).set({
 				message: text_to_send,
 				color:	color
 			});
 			
 		}
-		/*const handleClick=()=>{
+		const handleClick=()=>{
+				// get color radio box
+				let colors = document.getElementsByName('color');
+				let color;
+				for (let i = 0; i< colors.length; ++i){
+					if (colors[i].checked){
+						color = colors[i].value;
+						break;
+					}
+				}
 
-				var data={test:text_check_change(),corlr:43453};
+				var data={test:text_check_change(),color:color};
 
     			fetch( '/response',{
 					method:"POST",
@@ -246,7 +262,7 @@
     			.catch(e => {
         			console.log(e);
     			})
-  		}*/
+  		}
 	</script>
 </body>
 </html>
