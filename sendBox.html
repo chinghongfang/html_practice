@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="height:100%;">
+<html style="height:100%;background-color: #ACDAE8;">
 <head>
 	<title></title>
 	<meta charset="utf-8">
@@ -84,10 +84,10 @@
 			// here is rwd for different height screen
 			@media screen and (min-height: 200px) and (max-height: 400px) { 
 				.swiper-container{
-					height: 80px;
+					height: 100px;
 				}
 				.symbol{
-					font-size: 20px;
+					font-size: 25px;
 					background-image: url(https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/button1.png);
 					background-size: 100% 100%;
 					border:0px;
@@ -98,10 +98,10 @@
 			}
 			@media screen and (min-height: 400px) and (max-height: 600px) { 
 				.swiper-container{
-					height: 120px;
+					height: 150px;
 				}
 				.symbol{
-					font-size: 30px;
+					font-size: 40px;
 					background-image: url(https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/button1.png);
 					background-size: 100% 100%;
 					border:0px;
@@ -110,12 +110,26 @@
 					font-size:80px;
 				}
 			}
-			@media screen and (min-height: 600px){ 
+			@media screen and (min-height: 600px)and (max-height: 800px){ 
 				.swiper-container{
-					height: 120px;
+					height: 200px;
 				}
 				.symbol{
-					font-size: 35px;
+					font-size: 50px;
+					background-image: url(https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/button1.png);
+					background-size: 100% 100%;
+					border:0px;
+				}
+				#ans{
+					font-size: 100px;
+				}
+			}
+			@media screen and (min-height: 800px){ 
+				.swiper-container{
+					height: 250px;
+				}
+				.symbol{
+					font-size: 60px;
 					background-image: url(https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/button1.png);
 					background-size: 100% 100%;
 					border:0px;
@@ -128,19 +142,19 @@
 		
 		<div class="color_div">
 			顏色：
-			<label>
+			<label class="color_label">
 				<input class="rad" type="radio" name="color" value="red" checked>
 				<image class="color_img" src="https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/red.png">
 			</label>
-			<label>
+			<label class="color_label">
 				<input class="rad" type="radio" name="color" value="white">
 				<image class="color_img" src="https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/white.png">
 			</label>
-			<label>
+			<label class="color_label">
 				<input class="rad" type="radio" name="color" value="Grass">
 				<image class="color_img" src="https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/green.png">
 			</label>
-			<label>
+			<label class="color_label">
 				<input class="rad" type="radio" name="color" value="Blue">
 				<image class="color_img" src="https://raw.githubusercontent.com/chinghongfang/html_practice/master/image/blue.png">
 			</label>
@@ -148,22 +162,27 @@
 		<style>
 			.rad{
 				cursor:pointer;
-				width:50px;
-				height:50px;
+				width:40px;
+				height:40px;
 			}
 			.color_div{
 				height:10%;
 				font-size:50px;
-				margin-top:5%;
+				margin-top:10%;
 				margin-left:5%;
 			}
 			.color_img{
 				cursor:pointer;
+				width: 40px;
+				height: 40px;
+			}
+			.color_label{
+				border: 1px solid;
 			}
 			@media screen and (min-height: 200px) and (max-height: 400px) { 
 				.rad{
-					width: 20px;
-					height: 20px;
+					width: 18px;
+					height: 18px;
 				}
 				.color_div{
 					height:10%;
@@ -172,14 +191,14 @@
 					margin-left:5%;
 				}
 				.color_img{
-					width: 20px;
-					height: 20px;
+					width: 18px;
+					height: 18px;
 				}
 			}
 			@media screen and (min-height: 400px) and (max-height: 600px) { 
 				.rad{
-					width: 40px;
-					height: 40px;
+					width: 35px;
+					height: 35px;
 				}
 				.color_div{
 					height:10%;
@@ -188,8 +207,8 @@
 					margin-left:5%;
 				}
 				.color_img{
-					width: 40px;
-					height: 40px;
+					width: 35px;
+					height: 35px;
 				}
 			}
 		</style>
